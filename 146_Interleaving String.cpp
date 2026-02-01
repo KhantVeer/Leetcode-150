@@ -1,0 +1,29 @@
+/*
+146. Interleaving String
+Check if s3 is formed by interleaving s1 and s2. Use DP boolean table.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isInterleave(string s1, string s2, string s3) {
+    int n1 = s1.size(), n2 = s2.size(), n3 = s3.size();
+    if (n1 + n2 != n3) return false;
+    vector<vector<bool>> dp(n1+1, vector<bool>(n2+1,false));
+    dp[0][0] = true;
+    for (int i = 0; i <= n1; ++i) {
+        for (int j = 0; j <= n2; ++j) {
+            if (i > 0) dp[i][j] = dp[i][j] || (dp[i-1][j] && s1[i-1] == s3[i+j-1]);
+            if (j > 0) dp[i][j] = dp[i][j] || (dp[i][j-1] && s2[j-1] == s3[i+j-1]);
+        }
+    }
+    return dp[n1][n2];
+}
+
+int main() {
+    cout << (isInterleave("aab","axy","aaxaby") ? "true" : "false") << "\n"; // true
+    cout << (isInterleave("aab","abc","aaabcb") ? "true" : "false") << "\n"; // false
+    return 0;
+}
+
+// Time Complexity: O(n1*n2)
+// Space Complexity: O(n1*n2)
