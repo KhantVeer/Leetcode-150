@@ -1,0 +1,34 @@
+/*
+117. Search in Rotated Sorted Array
+Search target in a rotated sorted array in O(log n) time.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int searchRotated(vector<int>& nums, int target) {
+    int l = 0, r = (int)nums.size() - 1;
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (nums[m] == target) return m;
+        if (nums[l] <= nums[m]) { // left sorted
+            if (nums[l] <= target && target < nums[m]) r = m - 1;
+            else l = m + 1;
+        } else { // right sorted
+            if (nums[m] < target && target <= nums[r]) l = m + 1;
+            else r = m - 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> a{4,5,6,7,0,1,2};
+    cout << "searchRotated(...,0) = " << searchRotated(a,0) << "\n"; // 4
+    cout << "searchRotated(...,3) = " << searchRotated(a,3) << "\n"; // -1
+    vector<int> b{1};
+    cout << "searchRotated([1],0) = " << searchRotated(b,0) << "\n"; // -1
+    return 0;
+}
+
+// Time Complexity: O(log n)
+// Space Complexity: O(1)
