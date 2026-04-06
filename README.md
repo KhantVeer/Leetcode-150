@@ -1,4 +1,4 @@
-# 🚀 LeetCode 150 Solutions
+## 🚀 LeetCode 150 Solutions
 
 This repository contains my solutions to the **LeetCode Top 150 Interview Questions**, a curated list of the most important problems for coding interviews.
 
